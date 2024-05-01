@@ -56,7 +56,6 @@ QScrollBar {
   border: none;
 }
 QScrollBar::handle:vertical {         
-
   min-height: 0px;
   border: none;
   border-radius: 4px;

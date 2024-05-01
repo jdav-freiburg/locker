@@ -55,7 +55,7 @@ class QRCodeWidget(QWidget):
         self.qrcode_label.setPixmap(qr.make_image(QRCodePixmap).get_image())
 
 
-class RegisterWidget(QWidget):
+class RegisterAdminWidget(QWidget):
     success = pyqtSignal()
     abort = pyqtSignal()
 

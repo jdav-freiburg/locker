@@ -1,27 +1,28 @@
 from pathlib import Path
+from typing import Callable
 
 from PyQt5.QtCore import QTimer
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QMainWindow, QStackedLayout
 from PyQt5.QtWidgets import QWidget
 from bus import open_bay
-from card_auth import check_uid
+from card_auth import check_code
 
 import totp_auth
 from widgets.admin import AdminPanel
 from widgets.base import exc
-from widgets.manage_users import ManageUsersPanel
 from widgets.message_dialog import MessageDialog
 from widgets.nfc_reader import NFCReader
 from widgets.pin_input import PinInput
 
 
 class MainWindow(QMainWindow):
+
     def __init__(self):
         super().__init__()
 
         # Set window properties
-        self.setWindowTitle("Pin Input")
+        self.setWindowTitle("Control")
         self.showFullScreen()  # Set the window to fullscreen mode
         #self.setGeometry(0, 0, 320, 240)
         self.setFixedSize(320, 240)
@@ -33,10 +34,13 @@ class MainWindow(QMainWindow):
         pin_input = PinInput(self)
         pin_input.pin_output.connect(self.check_pin)
         self.stacked_layout.addWidget(pin_input)
+
+        self.card_reader = NFCReader()
+        self.card_reader.read_card.connect(self.read_card)
         
-        admin_panel = AdminPanel(self)
-        admin_panel.finished.connect(self.show_pin_page)
-        self.stacked_layout.addWidget(admin_panel)
+        self.admin_panel = AdminPanel(self, self.card_reader)
+        self.admin_panel.finished.connect(self.show_pin_page)
+        self.stacked_layout.addWidget(self.admin_panel)
 
         # dbg_panel = ManageUsersPanel(self)
         # dbg_panel.finished.connect(self.show_pin_page)
@@ -56,12 +60,10 @@ class MainWindow(QMainWindow):
         self.logout_timer.setSingleShot(True)
         self.logout_timer.timeout.connect(self.logout)
 
-        self.card_reader = NFCReader()
-        self.card_reader.read_card.connect(self.read_card)
         self.card_reader.start()
 
         if totp_auth.db.is_empty():
-            self.show_register_page()
+            self.show_admin_page()
 
     @exc
     def check_pin(self, code: str):
@@ -73,14 +75,17 @@ class MainWindow(QMainWindow):
             dlg.exec()
 
     @exc
-    def read_card(self, card_uid: str):
-        if check_uid(card_uid):
+    def read_card(self, card_code: str):
+        if check_code(card_code):
             open_bay()
         else:
             print("Card not registered")
 
     def logout(self):
         self.show_pin_page()
+        self.admin_panel.clear()
+        if totp_auth.db.is_empty():
+            self.show_admin_page()
 
     def reset_logout_timer(self):
         self.logout_timer.stop()

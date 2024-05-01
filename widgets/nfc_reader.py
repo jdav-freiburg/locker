@@ -1,4 +1,6 @@
 
+import math
+import random
 from smartcard.CardType import AnyCardType
 from smartcard.CardRequest import CardRequest
 from smartcard.Exceptions import NoCardException, CardRequestTimeoutException, NoReadersException, \
@@ -15,6 +17,7 @@ CMD_UID = [0xFF, 0xCA, 0x00, 0x00, 0x00]
 
 class NFCReader(QThread):
     read_card = pyqtSignal(str)
+    capture_read_card = pyqtSignal(str)
 
     def __init__(self):
         super().__init__()
@@ -30,6 +33,20 @@ class NFCReader(QThread):
     def run(self):
         last_uid: str = ""
         print("Card reader running")
+        while True:
+            self.msleep(1000)
+            if random.randint(0, 30) < 10:
+                data_str = "12345"
+                if last_uid != data_str:
+                    last_uid = data_str
+                    print(f"Test card {data_str}", flush=True)
+                    if self.receivers(self.capture_read_card) > 0:
+                        self.capture_read_card.emit(data_str)
+                    else:
+                        self.read_card.emit(data_str)
+            else:
+                last_uid = ""
+
         while self.running:
             try:
                 request = CardRequest(timeout=1, cardType=AnyCardType())
@@ -43,11 +60,15 @@ class NFCReader(QThread):
                     continue
                 else:
                     print(f"Read card {data_str}", flush=True)
-                    self.read_card.emit(data_str)
+                    if self.receivers(self.capture_read_card) > 0:
+                        self.capture_read_card.emit(data_str)
+                    else:
+                        self.read_card.emit(data_str)
                     last_uid = data_str
                 cardservice.connection.disconnect()
             except NoReadersException:
-                pass
+                self.msleep(1000)
+                last_uid = ""
             except (NoCardException, CardRequestTimeoutException):
                 # print("no card found, trying again")
                 last_uid = ""

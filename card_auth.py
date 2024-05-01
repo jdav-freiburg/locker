@@ -47,7 +47,8 @@ class CardDatabase:
         for idx, (key, *_) in enumerate(self._entries):
             if key == code_b:
                 key, name, timestamp, (timestamp_offset, timestamp_size), entry_offsets = self._entries[idx]
-                self._entries[idx] = (key, name, now_timestamp(), (timestamp_offset, timestamp_size), entry_offsets)
+                timestamp = now_timestamp().encode()
+                self._entries[idx] = (key, name, timestamp, (timestamp_offset, timestamp_size), entry_offsets)
                 if timestamp_size == len(timestamp):
                     self._f.seek(timestamp_offset)
                     self._f.write(timestamp)
@@ -73,9 +74,9 @@ class CardDatabase:
 db = CardDatabase('card_db.txt')
 
 
-def check_uid(uid: str) -> bool:
-    return db.verify(uid)
+def check_code(code: str) -> bool:
+    return db.verify(code)
 
 
-def register_uid(uid: str, name: str):
-    db.register(uid, name)
+def register(code: str, name: str):
+    db.register(code, name)

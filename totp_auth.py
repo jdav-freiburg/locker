@@ -64,13 +64,15 @@ class TotpDatabase:
         for idx, entry in enumerate(self._entries):
             if entry.verify(code, valid_window=valid_window):
                 uri, timestamp, (timestamp_offset, timestamp_size), entry_offsets = self._orig_entries[idx]
-                self._orig_entries[idx] = (uri, now_timestamp(), (timestamp_offset, timestamp_size), entry_offsets)
+                timestamp = now_timestamp().encode()
+                self._orig_entries[idx] = (uri, timestamp, (timestamp_offset, timestamp_size), entry_offsets)
                 if timestamp_size == len(timestamp):
                     self._f.seek(timestamp_offset)
                     self._f.write(timestamp)
                     self._f.seek(0, 2)
                 return True
-        return False or code == "000000"
+        #return False or code == "000000"
+        return False
 
     def remove(self, index: int):
         entry_offset, entry_size = self._orig_entries[index][3]
