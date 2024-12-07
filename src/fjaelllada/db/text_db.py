@@ -47,7 +47,7 @@ class TextDatabase(Db):
                     self._add_entry(entry)
 
     def _check_update(self):
-        if self._path.stat().st_mtime_ns > self._last_changed:
+        if self._path.is_file() and self._path.stat().st_mtime_ns > self._last_changed:
             self._read_file()
 
     def is_empty(self) -> bool:
