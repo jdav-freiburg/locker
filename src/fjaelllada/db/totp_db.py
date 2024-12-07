@@ -4,6 +4,8 @@ from typing import Generator, Tuple, cast, Optional, List
 
 import pyotp
 
+from fjaelllada.db import Db
+
 issuer = "jdav-locker-v1"
 valid_window = 1
 
@@ -18,7 +20,7 @@ def timestamp_to_localtz(timestamp: str) -> datetime:
     return datetime.fromtimestamp(timestamp_dt.timestamp())
 
 
-class TotpDatabase:
+class TotpDatabase(Db):
     _entries: List[pyotp.TOTP]
     # uri, last_login, (offset_last_login, size_last_login), (offset_entry, size_entry)
     _orig_entries: List[Tuple[bytes, bytes, Tuple[int, int], Tuple[int, int]]]
@@ -83,7 +85,7 @@ class TotpDatabase:
         self._f.write(b" " * entry_size)
         self._f.flush()
         self._f.seek(0, 2)
-    
+
     def get_all(self) -> Generator[Tuple[str, datetime], None, None]:
         for totp, (_, last_login, *_) in zip(self._entries, self._orig_entries):
             yield totp.name, timestamp_to_localtz(last_login.decode())
@@ -91,6 +93,3 @@ class TotpDatabase:
     @staticmethod
     def new_uri(username: str) -> str:
         return pyotp.TOTP(pyotp.random_base32(), name=username, issuer=issuer).provisioning_uri()
-
-
-db = TotpDatabase('admin_db.txt')

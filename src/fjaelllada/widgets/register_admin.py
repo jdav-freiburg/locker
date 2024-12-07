@@ -1,11 +1,11 @@
-import fjaelllada.qrcode
-import fjaelllada.qrcode.image.base
+import qrcode
+import qrcode.image.base
 
 from PyQt5.QtCore import pyqtSignal, Qt
 from PyQt5.QtGui import QColor, QPalette
 from PyQt5.QtWidgets import QLabel, QPushButton, QVBoxLayout, QHBoxLayout, QStackedLayout, QWidget, QDialogButtonBox
 
-import fjaelllada.totp_auth
+from fjaelllada.db.totp_db import TotpDatabase
 from fjaelllada.widgets.base import exc
 from fjaelllada.widgets.message_dialog import MessageDialog
 from fjaelllada.widgets.pin_input import PinInput
@@ -17,8 +17,10 @@ class QRCodeWidget(QWidget):
     next = pyqtSignal()
     prev = pyqtSignal()
 
-    def __init__(self, parent):
+    def __init__(self, parent, qr_size: int):
         super().__init__(parent)
+
+        self.qr_size = qr_size
 
         prev_button = QPushButton("←")
         prev_button.clicked.connect(self.prev)
@@ -49,7 +51,7 @@ class QRCodeWidget(QWidget):
         self.qrcode_label.clear()
 
     def set_data(self, data: str):
-        qr = qrcode.QRCode(version=None, box_size=4, border=1)
+        qr = qrcode.QRCode(version=None, box_size=self.qr_size, border=1)
         qr.add_data(data)
         qr.make(fit=True)
         self.qrcode_label.setPixmap(qr.make_image(QRCodePixmap).get_image())
@@ -59,8 +61,9 @@ class RegisterAdminWidget(QWidget):
     success = pyqtSignal()
     abort = pyqtSignal()
 
-    def __init__(self, parent):
+    def __init__(self, parent, db: TotpDatabase, qr_size: int = 4):
         super().__init__(parent)
+        self.db = db
 
         # Create stacked layout and add layouts
         self.stacked_layout = QStackedLayout(self)
@@ -70,7 +73,7 @@ class RegisterAdminWidget(QWidget):
         self.name_input.success.connect(self.username_next)
         self.stacked_layout.addWidget(self.name_input)
 
-        self.qr_code = QRCodeWidget(self)
+        self.qr_code = QRCodeWidget(self, qr_size)
         self.qr_code.prev.connect(self.qr_code_prev)
         self.qr_code.next.connect(self.qr_code_next)
         self.stacked_layout.addWidget(self.qr_code)
@@ -101,7 +104,7 @@ class RegisterAdminWidget(QWidget):
             dlg.exec()
             return
         # Get the username from the QLineEdit widget
-        self.uri = totp_auth.db.new_uri(username)
+        self.uri = self.db.new_uri(username)
         self.qr_code.set_data(self.uri)
         self.stacked_layout.setCurrentIndex(1)
     
@@ -115,7 +118,7 @@ class RegisterAdminWidget(QWidget):
     
     @exc
     def confirm_pin(self, pin: str):
-        if totp_auth.db.register(self.uri, pin):    
+        if self.db.register(self.uri, pin):    
             self.clear()
             self.success.emit()
         else:

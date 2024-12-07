@@ -1,13 +1,13 @@
 
-import fjaelllada.qrcode
-import fjaelllada.qrcode.image.base
+import qrcode
+import qrcode.image.base
 
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPainter, QPixmap
 
 
 
-class QRCodePixmap(fjaelllada.qrcode.image.base.BaseImage):
+class QRCodePixmap(qrcode.image.base.BaseImage):
     needs_drawrect = False
     needs_processing = True
 

@@ -2,6 +2,8 @@ from datetime import datetime, timezone
 import os.path
 from typing import Generator, List, Tuple
 
+from fjaelllada.db import Db
+
 
 def now_timestamp() -> str:
     return datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
@@ -13,7 +15,7 @@ def timestamp_to_localtz(timestamp: str) -> datetime:
     return datetime.fromtimestamp(timestamp_dt.timestamp())
 
 
-class CardDatabase:
+class CardDatabase(Db):
     # key, name, last_login, (offset_last_login, size_last_login), (offset_entry, size_entry)
     _entries: List[Tuple[bytes, bytes, bytes, Tuple[int, int], Tuple[int, int]]]
 
@@ -69,14 +71,3 @@ class CardDatabase:
     def get_all(self) -> Generator[Tuple[str, datetime], None, None]:
         for _, name, last_login, *_ in self._entries:
             yield name.decode(), timestamp_to_localtz(last_login.decode())
-
-
-db = CardDatabase('card_db.txt')
-
-
-def check_code(code: str) -> bool:
-    return db.verify(code)
-
-
-def register(code: str, name: str):
-    db.register(code, name)

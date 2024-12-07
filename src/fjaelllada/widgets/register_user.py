@@ -1,7 +1,7 @@
 from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtWidgets import QStackedLayout, QWidget, QDialogButtonBox, QVBoxLayout, QLabel, QPushButton
 
-import fjaelllada.card_auth
+from fjaelllada.db.card_db import CardDatabase
 from fjaelllada.widgets.base import exc
 from fjaelllada.widgets.message_dialog import MessageDialog
 from fjaelllada.widgets.nfc_reader import NFCReader
@@ -53,8 +53,10 @@ class RegisterUserWidget(QWidget):
 
     username = ""
 
-    def __init__(self, parent, card_reader: NFCReader):
+    def __init__(self, parent, card_reader: NFCReader, card_db: CardDatabase):
         super().__init__(parent)
+
+        self.card_db = card_db
 
         # Create stacked layout and add layouts
         self.stacked_layout = QStackedLayout(self)
@@ -102,6 +104,6 @@ class RegisterUserWidget(QWidget):
         self.register_card.deactivate()
 
         assert self.username
-        fjaelllada.card_auth.register(code, self.username)
+        self.card_db.register(code, self.username)
         self.clear()
         self.success.emit()

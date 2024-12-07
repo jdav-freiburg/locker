@@ -2,6 +2,8 @@ from pathlib import Path
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QLabel, QVBoxLayout, QDialog, QDialogButtonBox, QSizePolicy
 
+from fjaelllada.env import SCREEN_RESOLUTION_HEIGHT, SCREEN_RESOLUTION_WIDTH
+
 
 class MessageDialog(QDialog):
 
@@ -22,7 +24,7 @@ class MessageDialog(QDialog):
         vbox.addWidget(self.buttons, stretch=1, alignment=Qt.AlignmentFlag.AlignBottom | Qt.AlignmentFlag.AlignHCenter)
 
         self.showFullScreen()
-        self.setFixedSize(320, 240)
-        self.setGeometry(0, 0, 320, 240)
+        self.setFixedSize(SCREEN_RESOLUTION_WIDTH, SCREEN_RESOLUTION_HEIGHT)
+        self.setGeometry(0, 0, SCREEN_RESOLUTION_WIDTH, SCREEN_RESOLUTION_HEIGHT)
 
         self.setStyleSheet((Path(__file__).parent / 'style.qss').read_text())

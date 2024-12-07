@@ -1,7 +1,7 @@
 from PyQt5.QtCore import QTimer, pyqtSignal
 from PyQt5.QtWidgets import QWidget
 
-from bus import open
+from fjaelllada.depot_bay.hardware.bus import open
 from fjaelllada.widgets.base import exc
 
 

@@ -6,9 +6,9 @@ from PyQt5.QtCore import pyqtSignal, Qt
 from PyQt5.QtGui import QFontMetrics, QResizeEvent
 from PyQt5.QtWidgets import QPushButton, QVBoxLayout, QStackedLayout, QScroller, QScrollArea, QHBoxLayout, QLabel, QFrame, QSizePolicy
 from PyQt5.QtWidgets import QWidget
-from fjaelllada.totp_auth import TotpDatabase
+from fjaelllada.db.totp_db import TotpDatabase
 from fjaelllada.widgets.base import exc
-from fjaelllada.card_auth import CardDatabase, db as card_db
+from fjaelllada.db.card_db import CardDatabase
 
 
 @dataclass

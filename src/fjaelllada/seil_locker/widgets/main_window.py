@@ -4,10 +4,11 @@ from PyQt5.QtCore import QTimer
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QMainWindow, QStackedLayout
 from PyQt5.QtWidgets import QWidget
-from fjaelllada.bus import open_bay
-from fjaelllada.card_auth import check_code
+from fjaelllada.depot_bay.hardware.bus import open_bay
+from fjaelllada.seil_locker.db import card_db, admin_db
 
-import totp_auth
+from fjaelllada.env import SCREEN_RESOLUTION_HEIGHT, SCREEN_RESOLUTION_WIDTH
+import fjaelllada.totp_db as totp_db
 from widgets.admin import AdminPanel
 from widgets.base import exc
 from widgets.message_dialog import MessageDialog
@@ -24,7 +25,7 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("Control")
         self.showFullScreen()  # Set the window to fullscreen mode
         #self.setGeometry(0, 0, 320, 240)
-        self.setFixedSize(320, 240)
+        self.setFixedSize(SCREEN_RESOLUTION_WIDTH, SCREEN_RESOLUTION_HEIGHT)
         self.setCursor(Qt.BlankCursor)
 
         # Create stacked layout and add layouts
@@ -61,12 +62,12 @@ class MainWindow(QMainWindow):
 
         self.card_reader.start()
 
-        if totp_auth.db.is_empty():
+        if admin_db.is_empty():
             self.show_admin_page()
 
     @exc
     def check_pin(self, code: str):
-        if totp_auth.db.verify(code):
+        if totp_db.db.verify(code):
             self.show_admin_page()
         else:
             dlg = MessageDialog(self, "Invalid PIN", "Try again")
@@ -75,7 +76,7 @@ class MainWindow(QMainWindow):
 
     @exc
     def read_card(self, card_code: str):
-        if check_code(card_code):
+        if card_db.verify(card_code):
             open_bay()
         else:
             print("Card not registered")
@@ -83,7 +84,7 @@ class MainWindow(QMainWindow):
     def logout(self):
         self.show_pin_page()
         self.admin_panel.clear()
-        if totp_auth.db.is_empty():
+        if admin_db.is_empty():
             self.show_admin_page()
 
     def reset_logout_timer(self):

@@ -1,5 +1,3 @@
-
-import math
 import random
 from smartcard.CardType import AnyCardType
 from smartcard.CardRequest import CardRequest
@@ -10,6 +8,7 @@ from smartcard.util import toHexString, PACK
 
 from PyQt5.QtCore import pyqtSignal, QThread
 
+from fjaelllada.env import DEBUG_SIMULATE_CARD_READER
 from widgets.base import exc
 
 CMD_UID = [0xFF, 0xCA, 0x00, 0x00, 0x00]
@@ -33,7 +32,7 @@ class NFCReader(QThread):
     def run(self):
         last_uid: str = ""
         print("Card reader running")
-        while True:
+        while DEBUG_SIMULATE_CARD_READER:
             self.msleep(1000)
             if random.randint(0, 30) < 10:
                 data_str = "12345"
