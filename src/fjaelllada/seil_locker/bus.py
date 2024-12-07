@@ -13,7 +13,7 @@ if DEBUG_SIMULATE_OUTPUT:
         def output(a, b): pass
         @staticmethod
         def input(a): pass
-        PUD_DOWN = 0
+        PUD_UP = 0
         BCM = 0
         OUT = 0
         IN = 0
@@ -25,7 +25,7 @@ OUTPUT_PIN = int(os.environ.get("OUTPUT_PIN", "21"))
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(OUTPUT_PIN, GPIO.OUT)
-GPIO.setup(INPUT_PIN, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(INPUT_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 GPIO.output(OUTPUT_PIN, False)
 
