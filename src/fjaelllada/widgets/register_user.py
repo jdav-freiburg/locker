@@ -1,11 +1,11 @@
 from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtWidgets import QStackedLayout, QWidget, QDialogButtonBox, QVBoxLayout, QLabel, QPushButton
 
-import card_auth
-from widgets.base import exc
-from widgets.message_dialog import MessageDialog
-from widgets.nfc_reader import NFCReader
-from widgets.text_input import T9Input
+import fjaelllada.card_auth
+from fjaelllada.widgets.base import exc
+from fjaelllada.widgets.message_dialog import MessageDialog
+from fjaelllada.widgets.nfc_reader import NFCReader
+from fjaelllada.widgets.text_input import T9Input
 
 
 class CaptureCard(QWidget):
@@ -102,6 +102,6 @@ class RegisterUserWidget(QWidget):
         self.register_card.deactivate()
 
         assert self.username
-        card_auth.register(code, self.username)
+        fjaelllada.card_auth.register(code, self.username)
         self.clear()
         self.success.emit()

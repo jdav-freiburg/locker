@@ -3,7 +3,7 @@ import sys
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtCore import Qt
 
-from widgets.main_window import MainWindow
+from fjaelllada.widgets.main_window import MainWindow
 
 
 

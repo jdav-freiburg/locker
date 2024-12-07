@@ -1,12 +1,11 @@
 from pathlib import Path
-from typing import Callable
 
 from PyQt5.QtCore import QTimer
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QMainWindow, QStackedLayout
 from PyQt5.QtWidgets import QWidget
-from bus import open_bay
-from card_auth import check_code
+from fjaelllada.bus import open_bay
+from fjaelllada.card_auth import check_code
 
 import totp_auth
 from widgets.admin import AdminPanel

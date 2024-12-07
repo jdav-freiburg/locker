@@ -1,12 +1,10 @@
 import functools
-from typing import Callable
 
 from PyQt5.QtCore import QTimer, pyqtSignal
 from PyQt5.QtWidgets import QGridLayout, QLabel, QLineEdit, QPushButton, QVBoxLayout, QHBoxLayout
 from PyQt5.QtWidgets import QWidget
 
-import totp_auth
-from widgets.base import exc
+from fjaelllada.widgets.base import exc
 
 
 class QPinButton(QPushButton):

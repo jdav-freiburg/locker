@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from time import sleep
 import time
 
-from smbus import SMBus
+from fjaelllada.smbus import SMBus
 
 
 @dataclass

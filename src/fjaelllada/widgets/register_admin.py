@@ -1,16 +1,16 @@
-import qrcode
-import qrcode.image.base
+import fjaelllada.qrcode
+import fjaelllada.qrcode.image.base
 
 from PyQt5.QtCore import pyqtSignal, Qt
 from PyQt5.QtGui import QColor, QPalette
 from PyQt5.QtWidgets import QLabel, QPushButton, QVBoxLayout, QHBoxLayout, QStackedLayout, QWidget, QDialogButtonBox
 
-import totp_auth
-from widgets.base import exc
-from widgets.message_dialog import MessageDialog
-from widgets.pin_input import PinInput
-from widgets.qr_code_pixmap import QRCodePixmap
-from widgets.text_input import T9Input
+import fjaelllada.totp_auth
+from fjaelllada.widgets.base import exc
+from fjaelllada.widgets.message_dialog import MessageDialog
+from fjaelllada.widgets.pin_input import PinInput
+from fjaelllada.widgets.qr_code_pixmap import QRCodePixmap
+from fjaelllada.widgets.text_input import T9Input
 
 
 class QRCodeWidget(QWidget):

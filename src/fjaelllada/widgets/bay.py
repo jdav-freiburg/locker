@@ -1,13 +1,8 @@
-import traceback
-from typing import List
-
-from PyQt5.QtCore import QTimer, QRectF, pyqtSignal
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QColor, QPainter, QPen
+from PyQt5.QtCore import QTimer, pyqtSignal
 from PyQt5.QtWidgets import QWidget
 
 from bus import open
-from widgets.base import exc
+from fjaelllada.widgets.base import exc
 
 
 class BayWidget(QWidget):

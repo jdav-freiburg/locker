@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import QGridLayout, QLabel, QLineEdit, QPushButton, \
     QVBoxLayout, QHBoxLayout
 from PyQt5.QtWidgets import QWidget
 
-from widgets.base import exc
+from fjaelllada.widgets.base import exc
 
 
 class QT9Button(QPushButton):
