@@ -1,0 +1,6 @@
+{
+  "database": {
+    "local_path": ["test_file.txt"],
+    "remote_path": ["test_file.txt"]
+  }
+}
