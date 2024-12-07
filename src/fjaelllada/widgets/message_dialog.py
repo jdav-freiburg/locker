@@ -1,4 +1,3 @@
-from pathlib import Path
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QLabel, QVBoxLayout, QDialog, QDialogButtonBox, QSizePolicy
 
@@ -6,6 +5,7 @@ from fjaelllada.env import SCREEN_RESOLUTION_HEIGHT, SCREEN_RESOLUTION_WIDTH
 
 
 class MessageDialog(QDialog):
+    MAIN_STYLE: str
 
     def __init__(self, parent, title: str, message: str, buttons: QDialogButtonBox.StandardButton = QDialogButtonBox.StandardButton.Ok):
         super().__init__(parent, Qt.WindowType.FramelessWindowHint)
@@ -27,4 +27,4 @@ class MessageDialog(QDialog):
         self.setFixedSize(SCREEN_RESOLUTION_WIDTH, SCREEN_RESOLUTION_HEIGHT)
         self.setGeometry(0, 0, SCREEN_RESOLUTION_WIDTH, SCREEN_RESOLUTION_HEIGHT)
 
-        self.setStyleSheet((Path(__file__).parent / 'style.qss').read_text())
+        self.setStyleSheet(self.MAIN_STYLE)

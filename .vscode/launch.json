@@ -1,0 +1,19 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python Debugger: seil_locker/ui.py",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "src/fjaelllada/seil_locker/ui.py",
+            "console": "integratedTerminal",
+            "env": {
+                "DEBUG_SIMULATE_CARD_READER": "1",
+                "DEBUG_SIMULATE_OUTPUT": "1",
+            }
+        }
+    ]
+}

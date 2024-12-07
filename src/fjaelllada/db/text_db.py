@@ -33,6 +33,7 @@ class TextDatabase(Db):
     
     def _read_file(self):
         self._entries = []
+        self._reset()
         if self._path.is_file():
             self._last_changed = self._path.stat().st_mtime_ns
             with open(self._path, 'rb') as rf:
@@ -40,6 +41,7 @@ class TextDatabase(Db):
                     if not line.strip():
                         continue
                     fields = line.strip().rsplit(b";")
+                    fields = [f.decode() for f in fields]
                     entry = (*fields, (rf.tell() - len(line), len(line.rstrip())))
                     self._entries.append(entry)
                     self._add_entry(entry)
@@ -63,7 +65,7 @@ class TextDatabase(Db):
             self._add_entry(fields)
 
     @abstractmethod
-    def _remove(self, index: int, fields: tuple): ...
+    def _remove(self, index: int, fields: Tuple[str, ...]): ...
 
     def remove(self, index: int):
         # This must be fetched before updating
@@ -78,7 +80,7 @@ class TextDatabase(Db):
                 wf.flush()
             self._remove(index, fields)
 
-    def _get_all(self) -> Generator[tuple, None, None]:
+    def _get_all(self) -> Generator[Tuple[str, ...], None, None]:
         with self._lock():
             for *data, _offs in self._entries:
                 yield data

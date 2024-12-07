@@ -16,13 +16,13 @@ class TotpDatabase(TextDatabase):
     _lockfile: Path
 
     def __init__(self, path: str):
-        super().__init__(path, 1)
+        super().__init__(path)
     
     def _reset(self):
         self._totp_entries = []
     
     def _add_entry(self, fields: Tuple[str]):
-        self._totp_entries.append(cast(pyotp.TOTP, pyotp.parse_uri(fields[0].decode())))
+        self._totp_entries.append(cast(pyotp.TOTP, pyotp.parse_uri(fields[0])))
 
     def register(self, provisioning_uri: str, verification_code: Optional[str] = None) -> bool:
         totp = cast(pyotp.TOTP, pyotp.parse_uri(provisioning_uri))
@@ -32,20 +32,20 @@ class TotpDatabase(TextDatabase):
         self._register((provisioning_uri,))
         return True
 
-    def verify(self, code: str):
+    def verify(self, code: str) -> Optional[str]:
         with self._lock():
             for entry in self._totp_entries:
                 if entry.verify(code, valid_window=valid_window):
-                    return True
+                    return entry.name
             #return False or code == "000000"
-            return False
+            return None
 
-    def _remove(self, index: int, fields: tuple):
+    def _remove(self, index: int, fields: Tuple[str, ...]):
         del self._totp_entries[index]
 
     def get_all(self) -> Generator[str, None, None]:
         with self._lock():
-            for totp, *_ in self._totp_entries:
+            for totp in self._totp_entries:
                 yield totp.name
 
     @staticmethod

@@ -9,7 +9,7 @@ from smartcard.util import toHexString, PACK
 from PyQt5.QtCore import pyqtSignal, QThread
 
 from fjaelllada.env import DEBUG_SIMULATE_CARD_READER
-from widgets.base import exc
+from fjaelllada.widgets.base import exc
 
 CMD_UID = [0xFF, 0xCA, 0x00, 0x00, 0x00]
 

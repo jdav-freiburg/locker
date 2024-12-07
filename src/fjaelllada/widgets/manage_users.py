@@ -15,7 +15,7 @@ from fjaelllada.db.card_db import CardDatabase
 class UserEntry:
     index: int
     name: str
-    last_login: datetime
+    # last_login: datetime
 
 
 class EllipsisLabel(QLabel):
@@ -59,8 +59,8 @@ class UsersListEntry(QWidget):
     def set_user(self, user: UserEntry):
         self.user = user
 
-        last_login_str = user.last_login.strftime("%Y-%m-%d %H:%M:%S")
-        self.label.setText(f"{self.user.name} {last_login_str}")
+        # last_login_str = user.last_login.strftime("%Y-%m-%d %H:%M:%S")
+        self.label.setText(self.user.name)
 
 
 class UsersList(QWidget):
@@ -106,8 +106,8 @@ class UserDetails(QWidget):
         self.name_label = QLabel("Name", self)
         layout.addWidget(self.name_label)
 
-        self.last_login_label = QLabel("Last Login", self)
-        layout.addWidget(self.last_login_label)
+        # self.last_login_label = QLabel("Last Login", self)
+        # layout.addWidget(self.last_login_label)
 
         remove_button = QPushButton("Remove", self)
         remove_button.clicked.connect(lambda *_: self.remove_user.emit(self.user.index))
@@ -121,11 +121,11 @@ class UserDetails(QWidget):
         self.user = user
 
         self.name_label.setText(user.name)
-        self.last_login_label.setText("Last Login: " + user.last_login.strftime("%Y-%m-%d %H:%M:%S"))
+        # self.last_login_label.setText("Last Login: " + user.last_login.strftime("%Y-%m-%d %H:%M:%S"))
     
     def clear(self):
         self.name_label.setText("Name")
-        self.last_login_label.setText("Last Login")
+        # self.last_login_label.setText("Last Login")
 
 
 
@@ -175,8 +175,8 @@ class ManageUsersPanel(QWidget):
     
     def update_users(self):
         self.users = [
-            UserEntry(index=idx, name=user, last_login=last_login)
-            for idx, (user, last_login) in enumerate(self.db.get_all())
+            UserEntry(index=idx, name=user)
+            for idx, user in enumerate(self.db.get_all())
         ]
         self.users_widget.update_users(self.users)
 

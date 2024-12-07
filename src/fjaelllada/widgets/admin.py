@@ -3,9 +3,9 @@ from PyQt5.QtWidgets import QPushButton, QVBoxLayout, QStackedLayout
 from PyQt5.QtWidgets import QWidget
 from fjaelllada.db.card_db import CardDatabase
 from fjaelllada.db.totp_db import TotpDatabase
-from widgets.base import exc
-from widgets.manage_users import ManageUsersPanel
-from widgets.nfc_reader import NFCReader
+from fjaelllada.widgets.base import exc
+from fjaelllada.widgets.manage_users import ManageUsersPanel
+from fjaelllada.widgets.nfc_reader import NFCReader
 
 from fjaelllada.widgets.register_admin import RegisterAdminWidget
 from fjaelllada.widgets.register_user import RegisterUserWidget
@@ -55,7 +55,7 @@ class AdminPanel(QWidget):
         admin_choice.manage_admins.connect(self.manage_admins)
         self.stacked_layout.addWidget(admin_choice)
 
-        self.register_user_widget = RegisterUserWidget(self, card_reader)
+        self.register_user_widget = RegisterUserWidget(self, card_reader, user_db)
         self.register_user_widget.success.connect(self.finish)
         self.register_user_widget.abort.connect(self.finish)
         self.stacked_layout.addWidget(self.register_user_widget)
