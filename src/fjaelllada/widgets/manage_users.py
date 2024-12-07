@@ -1,7 +1,6 @@
 
 from dataclasses import dataclass
-from datetime import datetime
-from typing import List, Union
+from typing import List, Optional, Union
 from PyQt5.QtCore import pyqtSignal, Qt
 from PyQt5.QtGui import QFontMetrics, QResizeEvent
 from PyQt5.QtWidgets import QPushButton, QVBoxLayout, QStackedLayout, QScroller, QScrollArea, QHBoxLayout, QLabel, QFrame, QSizePolicy
@@ -29,7 +28,7 @@ class EllipsisLabel(QLabel):
         metrics = QFontMetrics(self.font());
         super().setText(metrics.elidedText(self.text, Qt.TextElideMode.ElideRight, self.width()))
     
-    def resizeEvent(self, a0: QResizeEvent | None) -> None:
+    def resizeEvent(self, a0: Optional[QResizeEvent]) -> None:
         super().resizeEvent(a0)
         self.updateText()
 

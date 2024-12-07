@@ -1,3 +1,4 @@
+from typing import Optional
 from PyQt5.QtCore import QTimer, pyqtSignal
 from PyQt5.QtWidgets import QPushButton, QVBoxLayout, QStackedLayout
 from PyQt5.QtWidgets import QWidget
@@ -43,7 +44,7 @@ class AdminChoice(QWidget):
 class AdminPanel(QWidget):
     finished = pyqtSignal()
 
-    def __init__(self, parent, card_reader: NFCReader, admin_db: TotpDatabase, user_db: CardDatabase | None, qr_size: int):
+    def __init__(self, parent, card_reader: NFCReader, admin_db: TotpDatabase, user_db: Optional[CardDatabase], qr_size: int):
         super().__init__(parent)
 
         self.stacked_layout = QStackedLayout(self)
