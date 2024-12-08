@@ -2,7 +2,29 @@
 
 for accessing the hardware locker using registered RFID cards.
 
-## Installation
+## Hardware
+
+See the [depot-oben-eda](depot-oben-eda) folder for kicad Drawings
+Open the project file with [KiCad](https://www.kicad.org/) (used version is 8) to view the schematic and board design
+for the small transistor board for opening the solenoid.
+
+The pinout for the Raspberry Pi is as follows (BCM numbering!):
+
+Pull up `SWITCH` to turn on the solenoid, don't hold too long because it tends to overheat quite fast. (<= 500 ms)
+`CHECK` is high-z when the locker is open and GND when it is closed. To prevent floating state
+pull up the GPIO pin to which `CHECK` is connected.
+
+| Board Pin | RaspberryPi Pin |
+| :-------- | :-------------- |
+| SWITCH    | GPIO21          |
+| CHECK     | GPIO20          |
+| GND       | GND             |
+
+For pinout info see [pinout.xyz/](https://pinout.xyz/)
+
+
+
+## Software Installation
 
 Install display
 ```sh
