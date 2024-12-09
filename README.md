@@ -24,7 +24,7 @@ For pinout info see [pinout.xyz/](https://pinout.xyz/)
 
 
 
-## Software Installation
+## Installation
 
 Install display
 ```sh
@@ -53,10 +53,5 @@ hdmi_drive=1
 ```
 (480x320 seems to end up wrong if set as cvt)
 
-Create venv and install requirements:
-```sh
-python -m venv --system-site-packages venv
-pip install pyotp qrcode
-```
-Copy `.xsession` over.
-
+## Software
+See the [Software Docs](software/README.md) for details.
