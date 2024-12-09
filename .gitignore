@@ -3,6 +3,9 @@
 *_db.txt
 db.txt
 smbus.py
+*.lock
+
+!poetry.lock
 
 # Created by .ignore support plugin (hsz.mobi)
 ### Diff template
