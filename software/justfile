@@ -1,0 +1,19 @@
+# builds the fjaelllada python package
+build:
+  poetry build
+
+# installs all dependencies using poetry
+install:
+  poetry install
+
+# runs the seil-locker script with some dev env variables defined
+run-seil:
+  DEBUG_SIMULATE_CARD_READER=true DEBUG_SIMULATE_OUTPUT=true poetry run seil-locker
+
+# remove dist folder, __pycache__, locks, and logs
+clean:
+  rm -r fjaelllada/__pycache__
+  rm -r dist/
+  rm admin_db.txt.lock
+  rm card_db.txt.lock
+  rm log.log
