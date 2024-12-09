@@ -16,6 +16,10 @@ smbus = "^1.1.post2"
 pyqt5 = "^5.15.11"
 filelock = "^3.16.1"
 
+[tool.poetry.scripts]
+seil-locker = "fjaelllada.seil_locker.ui:main"
+depot = "fjaelllada.depot_bay.ui:main"
+
 
 [build-system]
 requires = ["poetry-core"]
