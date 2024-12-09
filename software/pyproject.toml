@@ -2,7 +2,7 @@
 name = "fjaelllada"
 version = "1.0.0"
 description = ""
-authors = ["Lukas Vögtle"]
+authors = ["Lukas Vögtle", "Kai Kasprovsky", "Andreas Philipp"]
 license = "BSD-3-clause"
 readme = "README.md"
 
