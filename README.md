@@ -33,7 +33,7 @@ cd LCD-show/
 chmod +x LCD35-show
 ./LCD35-show
 sudo apt install ./libacsccid1_1.1.8-1~bpo10+1_armhf.deb
-sudo apt install python3-pyscard pcscd
+sudo apt install python3-pyscard pcscd libpcsclite-dev
 ```
 
 Replace the end of `/boot/config.txt` by:

@@ -2,7 +2,7 @@ from abc import abstractmethod
 from contextlib import contextmanager
 from filelock import FileLock
 from pathlib import Path
-from typing import Generator, List, Tuple
+from typing import Generator, List, Optional, Tuple
 
 from fjaelllada.db import Db
 
@@ -12,9 +12,11 @@ class TextDatabase(Db):
     _entries: List[tuple]
     _path: Path
     _lockfile: Path
+    _last_changed: Optional[int]
 
     def __init__(self, path: str):
         self._path = Path(path)
+        self._last_changed = None
         self._lockfile = self._path.with_name(self._path.name + ".lock")
         self._read_file()
 
@@ -47,7 +49,7 @@ class TextDatabase(Db):
                     self._add_entry(entry)
 
     def _check_update(self):
-        if self._path.is_file() and self._path.stat().st_mtime_ns > self._last_changed:
+        if self._path.is_file() and (self._last_changed is None or self._path.stat().st_mtime_ns > self._last_changed):
             self._read_file()
 
     def is_empty(self) -> bool:

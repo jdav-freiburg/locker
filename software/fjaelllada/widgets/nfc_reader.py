@@ -20,11 +20,12 @@ class NFCReader(QThread):
 
     def __init__(self):
         super().__init__()
-        avail_readers = readers()
-        if len(avail_readers) == 0:
-            #raise RuntimeError("Couldn't find any readers")
-            pass
-        print(f"Found the following readers: {avail_readers}")
+        if not DEBUG_SIMULATE_CARD_READER:
+            avail_readers = readers()
+            if len(avail_readers) == 0:
+                #raise RuntimeError("Couldn't find any readers")
+                pass
+            print(f"Found the following readers: {avail_readers}")
 
         self.running: bool = True
 
