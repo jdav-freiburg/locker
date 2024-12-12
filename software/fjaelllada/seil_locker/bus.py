@@ -1,7 +1,7 @@
 import os
 import time
 
-from fjaelllada.env import DEBUG_SIMULATE_OUTPUT
+from fjaelllada.env import DEBUG_SIMULATE_OUTPUT, INPUT_PIN, OUTPUT_PIN
 
 if DEBUG_SIMULATE_OUTPUT:
     class GPIO:
@@ -20,8 +20,6 @@ if DEBUG_SIMULATE_OUTPUT:
 else:
     import RPi.GPIO as GPIO
 
-INPUT_PIN = int(os.environ.get("INPUT_PIN", "20"))
-OUTPUT_PIN = int(os.environ.get("OUTPUT_PIN", "21"))
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(OUTPUT_PIN, GPIO.OUT)

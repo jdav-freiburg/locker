@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "fjaelllada"
-version = "1.0.0"
+version = "1.0.1"
 description = ""
 authors = ["Lukas Vögtle", "Kai Kasprovsky", "Andreas Philipp"]
 license = "BSD-3-clause"
@@ -20,6 +20,7 @@ pyotp = "^2.9.0"
 rpi-gpio = "^0.7.1"
 smbus = "^1.1.post2"
 filelock = "^3.16.1"
+python-dotenv = "^1.0.1"
 
 [tool.poetry.scripts]
 seil-locker = "fjaelllada.seil_locker.ui:main"
