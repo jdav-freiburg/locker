@@ -23,7 +23,7 @@ filelock = "^3.16.1"
 
 [tool.poetry.scripts]
 seil-locker = "fjaelllada.seil_locker.ui:main"
-depot = "fjaelllada.depot_bay.ui:main"
+depot-bay = "fjaelllada.depot_bay.ui:main"
 
 
 [build-system]
