@@ -8,7 +8,9 @@
 
 1. Install [poetry](https://python-poetry.org/) on your machine
 2. Install sytem dependencies: `apt install python3-pyscard libpcsclite-dev pcscd` 
-3. Install all python dependencies with `poetry install` or `just install`
+3. Depending on your system it might be necessary to install the `swig` package for building the python dependencies
+4. Install all python dependencies with `poetry install` or `just install`
+5. Start developing
 
 Launching the project: take a look at the [justfile](justfile).
 Run `just run-seil` to run the application for the upper locker locally
