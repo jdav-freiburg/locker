@@ -4,10 +4,11 @@ build:
 
 # installs all dependencies using poetry
 install:
+  poetry lock
   poetry install
 
 # runs the seil-locker script with some dev env variables defined
-run-seil:
+seil-locker:
   DEBUG_SIMULATE_CARD_READER=true DEBUG_SIMULATE_OUTPUT=true poetry run seil-locker
 
 # remove dist folder, __pycache__, locks, and logs
