@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "fjaelllada"
-version = "1.0.1"
+version = "1.0.4"
 description = ""
 authors = ["Lukas Vögtle", "Kai Kasprovsky", "Andreas Philipp"]
 license = "BSD-3-clause"
@@ -10,8 +10,8 @@ readme = "README.md"
 # the following packages are pinned to match the versions
 # of the raspberry pi apt packages python3-*
 # to avoid compiling pyqt5 and pyscard
-pyqt5 = "5.15.2"
-pyscard= "2.0.0"
+pyqt5 = "5.15.9"
+pyscard= "2.0.5"
 
 # looser version restrictions for non binary packages
 python = "^3.9"  # current Raspbian ships with py 3.9.2

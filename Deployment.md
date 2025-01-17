@@ -14,7 +14,7 @@
 `apt install curl git vim cmake unzip libacsccid1 pcscd libraspberrypi-dev raspberrypi-kernel-headers libpcsclite-dev python3 python3-pip python3-pyscard python3-pyqt5 xserver-xorg-input-evdev xinput-calibrator xserver-xorg-video-fbturbo`
 
 3.  Download and compile drivers and overlays from waveshare:
-	```bash
+```bash
 wget https://files.waveshare.com/upload/1/1e/Waveshare35a.zip
 unzip ./Waveshare35a.zip
 sudo cp waveshare35a.dtbo /boot/overlays/
@@ -29,7 +29,7 @@ sudo install fbcp /usr/local/bin/fbcp
 cd ~
 rm -r rpi-fbcp
 rm waveshare35a.dtbo
-	```
+```
 
 4. Comment out the following lines in `/boot/firmware/config.txt`:
 ```bash
