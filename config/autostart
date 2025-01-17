@@ -1,0 +1,2 @@
+@xscreensaver -no-splash
+@/usr/bin/bash /home/pi/fjaelllada/start-fjaelllada.sh
