@@ -6,8 +6,8 @@
 	(paper "A4")
 	(title_block
 		(title "Schnapper Ansteuerung")
-		(date "2024-12-08")
-		(rev "1.0")
+		(date "2025-01-27")
+		(rev "1.1")
 		(company "jdav Freiburg")
 	)
 	(lib_symbols
@@ -926,17 +926,8 @@
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
-			(property "Reference" "Q"
-				(at 5.08 8.89 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify right)
-				)
-			)
-			(property "Value" "BSP75N"
-				(at -10.16 8.89 0)
+			(property "Reference" "Q1"
+				(at 11.43 1.2701 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -944,7 +935,16 @@
 					(justify left)
 				)
 			)
-			(property "Footprint" "Package_TO_SOT_SMD:SOT-223"
+			(property "Value" "BSP76"
+				(at 11.43 -1.2699 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" "Package_TO_SOT_SMD:SOT-223-3_TabPin2"
 				(at -3.175 -12.065 0)
 				(effects
 					(font
@@ -962,7 +962,7 @@
 					(hide yes)
 				)
 			)
-			(property "Description" "Self-Protected Low Side Driver with Temperature and Current Limit, SOT−223"
+			(property "Description" ""
 				(at 0 0 0)
 				(effects
 					(font
@@ -2505,7 +2505,6 @@
 	)
 	(label "CHECK"
 		(at 170.18 76.2 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2516,7 +2515,6 @@
 	)
 	(label "BSP_DRAIN"
 		(at 152.4 101.6 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2527,7 +2525,6 @@
 	)
 	(label "SWITCH"
 		(at 170.18 68.58 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2538,7 +2535,6 @@
 	)
 	(label "SWITCH"
 		(at 151.13 138.43 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2549,7 +2545,6 @@
 	)
 	(label "BSP_DRAIN"
 		(at 201.93 123.19 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2560,7 +2555,6 @@
 	)
 	(label "CHECK"
 		(at 152.4 104.14 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3429,7 +3423,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-223"
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-223-3_TabPin2"
 			(at 191.135 150.495 0)
 			(effects
 				(font
