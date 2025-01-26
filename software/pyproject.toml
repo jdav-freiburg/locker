@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "fjaelllada"
-version = "1.0.4"
+version = "1.0.5"
 description = ""
 authors = ["Lukas Vögtle", "Kai Kasprovsky", "Andreas Philipp"]
 license = "BSD-3-clause"
